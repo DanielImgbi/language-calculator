@@ -1,35 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import Pages from "./Pages";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [grid, setGrid] = useState(1);
+
+  const handleGridChange = (gridNumber) => setGrid(gridNumber);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="h-screen flex flex-col items-center space-y-20">
+      <header className="w-full h-fit flex items-center justify-center py-5 bg-gray-100 backdrop-blur-md backdrop-filter bg-opacity-70 fixed">
+        <h1>COMPANY LOGO | GRID - {grid}</h1>
+      </header>
+      <Pages grid={grid} handleGridChange={handleGridChange} />
+    </div>
+  );
 }
 
-export default App
+export default App;
