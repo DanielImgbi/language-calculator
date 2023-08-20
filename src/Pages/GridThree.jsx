@@ -4,22 +4,32 @@ import Cell from "../comps/Cell";
 import { group3 } from "../tools/groups";
 
 const GridThree = ({ handleGridChange }) => {
-  const [groupThree, setGroupThree] = useState(group3);
-
+  const [words, setWords] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  useEffect(() => {
+    fetch("/api/gridthree")
+      .then((response) => {
+        response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setWords(data);
+      });
+  });
+
   const handleWordPick = (selectWord) => {
-    const newVal = groupThree.map((word) =>
+    const newVal = words.map((word) =>
       selectWord.id === word.id ? { ...word, active: !word.active } : word
     );
 
-    setGroupThree(newVal);
+    setWords(newVal);
   };
 
   return (
     <section className="flex flex-col space-y-0">
       <div className="grid grid-cols-2 gap-2 p-2 sm:grid-cols-3 lg:grid-rows-5 lg:grid-cols-5 lg:gap-5">
-        {groupThree.map((word) => (
+        {words?.map((word) => (
           <Cell
             key={word.id}
             word={word}

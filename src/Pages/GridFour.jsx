@@ -4,12 +4,22 @@ import Cell from "../comps/Cell";
 import { group4 } from "../tools/groups";
 
 const GridFour = ({ handleGridChange }) => {
-  const [groupFour, setGroupFour] = useState(group4);
-
+  const [words, setWords] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  useEffect(() => {
+    fetch("/api/gridfour")
+      .then((response) => {
+        response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setWords(data);
+      });
+  });
+
   const handleWordPick = (selectWord) => {
-    const newVal = groupFour.map((word) =>
+    const newVal = words.map((word) =>
       selectWord.id === word.id ? { ...word, active: !word.active } : word
     );
 
@@ -19,7 +29,7 @@ const GridFour = ({ handleGridChange }) => {
   return (
     <section className="flex flex-col space-y-0">
       <div className="grid grid-cols-2 gap-2 p-2 sm:grid-cols-3 lg:grid-rows-6 lg:grid-cols-5 lg:gap-5">
-        {groupFour.map((word) => (
+        {words?.map((word) => (
           <Cell
             key={word.id}
             word={word}
