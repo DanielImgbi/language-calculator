@@ -1,39 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Cell from "../comps/Cell";
-import { group3 } from "../tools/groups";
 
-const GridThree = ({ handleGridChange }) => {
-  const [words, setWords] = useState([]);
+const GridThree = ({ handleGridChange, setScores, scores }) => {
+  const [groupThree, setGroupThree] = useState(null);
+  const [g3Scores, setG3Scores] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
-    fetch("/api/gridthree")
-      .then((response) => {
-        response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setWords(data);
-      });
-  });
+    fetch("http://localhost:8080/api/gridthree")
+      .then((data) => data.json())
+      .then((data) => setGroupThree(data.words));
+  }, []);
 
   const handleWordPick = (selectWord) => {
-    const newVal = words.map((word) =>
+    const newVal = groupThree.map((word) =>
       selectWord.id === word.id ? { ...word, active: !word.active } : word
     );
 
-    setWords(newVal);
+    setGroupThree(newVal);
+  };
+
+  const handleGroupScore = (word) => {
+    if (word.active) {
+      setG3Scores((preVal) => preVal - 2);
+    }
+    if (!word.active) {
+      setG3Scores((preVal) => preVal + 2);
+    }
+    console.log(g3Scores);
+  };
+
+  const handleSubmit = () => {
+    setScores({ ...scores, G3: g3Scores });
   };
 
   return (
     <section className="flex flex-col space-y-0">
       <div className="grid grid-cols-2 gap-2 p-2 sm:grid-cols-3 lg:grid-rows-5 lg:grid-cols-5 lg:gap-5">
-        {words?.map((word) => (
+        {groupThree?.map((word) => (
           <Cell
             key={word.id}
             word={word}
             handleWordPick={handleWordPick}
+            handleGroupScore={handleGroupScore}
             isSubmitted={isSubmitted}
           />
         ))}
@@ -42,17 +52,20 @@ const GridThree = ({ handleGridChange }) => {
       <div className="flex items-center justify-center py-2">
         {!isSubmitted ? (
           <button
-            onClick={() => setIsSubmitted(true)}
+            onClick={() => {
+              setIsSubmitted(true);
+              handleSubmit();
+            }}
             className="bg-violet-500 px-10 rounded py-2 text-white transition font-semibold text-lg hover:scale-105"
           >
-            Submit
+            Sprawdz
           </button>
         ) : (
           <button
             onClick={() => handleGridChange(4)}
             className="bg-violet-500 px-10 rounded py-2 text-white transition font-semibold text-lg hover:scale-105"
           >
-            Next
+            Dalej
           </button>
         )}
       </div>
