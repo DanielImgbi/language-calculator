@@ -4,8 +4,17 @@ import GridTwo from "./GridTwo";
 import GridThree from "./GridThree";
 import GridFour from "./GridFour";
 import Summary from "./Summary";
+import FinishScreen from "./FinishScreen";
 
-const Pages = ({ grid, handleGridChange }) => {
+const Pages = ({
+  grid,
+  handleGridChange,
+  setProgress2,
+  setProgress3,
+  setProgress4,
+  setProgress5,
+  setProgress6,
+}) => {
   const [scores, setScores] = useState({});
 
   switch (grid) {
@@ -15,6 +24,7 @@ const Pages = ({ grid, handleGridChange }) => {
           setScores={setScores}
           scores={scores}
           handleGridChange={handleGridChange}
+          setProgress2={setProgress2}
         />
       );
       break;
@@ -24,6 +34,7 @@ const Pages = ({ grid, handleGridChange }) => {
           setScores={setScores}
           scores={scores}
           handleGridChange={handleGridChange}
+          setProgress3={setProgress3}
         />
       );
       break;
@@ -33,6 +44,7 @@ const Pages = ({ grid, handleGridChange }) => {
           setScores={setScores}
           scores={scores}
           handleGridChange={handleGridChange}
+          setProgress4={setProgress4}
         />
       );
       break;
@@ -42,11 +54,21 @@ const Pages = ({ grid, handleGridChange }) => {
           setScores={setScores}
           scores={scores}
           handleGridChange={handleGridChange}
+          setProgress5={setProgress5}
+        />
+      );
+      break;
+    case 5:
+      return (
+        <Summary
+          scores={scores}
+          handleGridChange={handleGridChange}
+          setProgress6={setProgress6}
         />
       );
       break;
     default:
-      return <Summary scores={scores} />;
+      return <FinishScreen />;
       break;
   }
 };

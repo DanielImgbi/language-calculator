@@ -9,11 +9,11 @@ const ProgressBar = ({
   progress6,
 }) => {
   return (
-    <div className="rounded-xl  flex items-center justify-between h-[200px] w-[450px]">
+    <div className="rounded-xl  flex items-center justify-between h-[50px] w-[450px]">
       <span
         className={`rounded-full ${
           progress1 ? "bg-violet-500" : "bg-gray-200"
-        } h-[100%] w-[13.4%] p-4`}
+        } h-[100%] w-[13.4%]`}
       ></span>
       <span
         className={`rounded-full ${

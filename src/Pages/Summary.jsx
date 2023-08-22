@@ -1,14 +1,14 @@
 import React, { useState } from "react";
+import Form from "../comps/Form";
 
-const Summary = ({ scores }) => {
+const Summary = ({ scores, handleGridChange, setProgress6 }) => {
   const [email, setemail] = useState("");
 
   function handleSubmit() {
     fetch("http://localhost:8080/api/summary", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      "Content-Type": "application/json",
+      headers: {},
       body: JSON.stringify({
         data: {
           receiver: email,
@@ -22,7 +22,7 @@ const Summary = ({ scores }) => {
     <div className="flex flex-col gap-9 mt-8 items-center">
       <div className="flex flex-col gap-4">
         <h3 className="text-2xl capitalize font-medium tracking-wider">
-          this score is a reflection fo our performance based on previous
+          this score is a reflection of our performance based on previous
           factors{" "}
         </h3>
         <p className="text-lg text-center tracking-wide font-normal ">
@@ -31,58 +31,16 @@ const Summary = ({ scores }) => {
         </p>
       </div>
 
-      <div className="w-full flex flex-col gap-6">
-        <div className="flex flex-col gap-5 items-start">
-          <p>Name</p>{" "}
-          <input
-            className="w-full px-3 py-5 border-2 border-gray-300 rounded-xl"
-            type="text"
-            required
-          />
-        </div>
-        <div className="flex flex-col gap-5 items-start">
-          <p>Surname</p>{" "}
-          <input
-            className="w-full px-3 py-5 border-2 border-gray-300 rounded-xl"
-            type="text"
-            required
-          />
-        </div>
-        <div className="flex flex-col gap-5 items-start">
-          <p>Email</p>{" "}
-          <input
-            value={email}
-            onChange={(e) => setemail(e.target.value)}
-            className="w-full px-3 py-5 border-2 border-gray-300 rounded-xl"
-            type="text"
-            required
-          />
-        </div>
-        <div className="flex gap-8 items-center">
-          <p>Age</p>{" "}
-          <select
-            className="shadow-md px-3 py-3 bg-white outline-none border-none"
-            name=""
-            id=""
-          >
-            <option value="">select an option</option>
-            <option value="">18-25</option>
-            <option value="">26-35</option>
-            <option value="">36-45</option>
-            <option value="">46-55</option>
-            <option value="">56+</option>
-          </select>
-        </div>
-        <div className="flex items-center justify-center gap-4">
-          <input type="checkbox" className="" name="" id="" />
-          <p className="text-xl capitalize">i agree to privacy policy</p>
-        </div>
+      <div>
+        <Form setemail={setemail} email={email} />
       </div>
 
       <button
         onClick={() => {
           handleSubmit();
           console.log(scores);
+          handleGridChange("");
+          setProgress6((preVal) => !preVal);
         }}
         className="bg-violet-500 text-white font-medium px-[2rem] py-3 rounded-xl"
       >

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import Cell from "../comps/Cell";
 
-const GridThree = ({ handleGridChange, setScores, scores }) => {
+const GridThree = ({ handleGridChange, setScores, scores, setProgress4 }) => {
   const [groupThree, setGroupThree] = useState(null);
   const [g3Scores, setG3Scores] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -62,7 +62,10 @@ const GridThree = ({ handleGridChange, setScores, scores }) => {
           </button>
         ) : (
           <button
-            onClick={() => handleGridChange(4)}
+            onClick={() => {
+              handleGridChange(4);
+              setProgress4((preVal) => !preVal);
+            }}
             className="bg-violet-500 px-10 rounded py-2 text-white transition font-semibold text-lg hover:scale-105"
           >
             Dalej

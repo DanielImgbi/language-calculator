@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import Cell from "../comps/Cell";
 
-const GridFour = ({ handleGridChange, setScores, scores }) => {
+const GridFour = ({ handleGridChange, setScores, scores, setProgress5 }) => {
   const [groupFour, setGroupFour] = useState(null);
   const [g4Scores, setG4Scores] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -60,7 +60,10 @@ const GridFour = ({ handleGridChange, setScores, scores }) => {
           </button>
         ) : (
           <button
-            onClick={() => handleGridChange("")}
+            onClick={() => {
+              handleGridChange(5);
+              setProgress5((preVal) => !preVal);
+            }}
             className="bg-violet-500 px-10 rounded py-2 text-white transition font-semibold text-lg hover:scale-105"
           >
             Dalej

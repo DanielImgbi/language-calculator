@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import Cell from "../comps/Cell";
 
-const GridOne = ({ handleGridChange, setScores, scores }) => {
+const GridOne = ({ handleGridChange, setScores, scores, setProgress2 }) => {
   const [groupOne, setGroupOne] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [g1Scores, setG1Scores] = useState(0);
@@ -66,6 +66,7 @@ const GridOne = ({ handleGridChange, setScores, scores }) => {
             onClick={() => {
               handleGridChange(2);
               console.log(scores);
+              setProgress2((preVal) => !preVal);
             }}
             className="bg-violet-500 px-10 rounded py-2 text-white transition font-semibold text-lg hover:scale-105"
           >
