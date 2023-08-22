@@ -31,9 +31,16 @@ const Summary = ({ scores, handleGridChange, setProgress6 }) => {
         </p>
       </div>
 
-      <div>
-        <Form setemail={setemail} email={email} />
+      <div className="h-[150px] w-[600px] flex justify-between items-center p-3">
+        <img src="" alt="img1" className="h-[100%] w-[30%]" />
+
+        <img src="" alt="img2" className="h-[100%] w-[25%]" />
+
+        <img src="" alt="img3" className="h-[100%] w-[25%]" />
       </div>
+
+      <hr />
+      <Form setemail={setemail} email={email} />
 
       <button
         onClick={() => {
